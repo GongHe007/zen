@@ -1,0 +1,54 @@
+class InitMigration < ActiveRecord::Migration[5.1]
+  def change
+    create_table :users do |t|
+      t.string  :nickname,                   null: false
+      t.string  :password,                   null: false
+      t.string  :email,                      null: false
+      t.string  :mobile_number,  limit: 20
+      t.string  :alipay_number
+      t.string  :wx_number
+      t.string  :bank_card_number
+      t.float   :eth_balance,                null: false, default: 0.0
+      t.float   :eth_locked_balance,         null: false, default: 0.0
+
+      t.timestamps
+    end
+
+    create_table :advertisements do |t|
+      t.integer :user_id,                   null: false
+      t.integer :_type,                     null: false
+      t.integer :cryptocurrency_type,       null: false
+      t.integer :legal_tender_type,         null: false
+      t.float   :price,                     null: false
+      t.integer :status,                    null: false, default: 0
+      t.float   :min_limit,                 null: false
+      t.float   :max_limit,                 null: false
+      t.integer :time_limit,                null: false
+      t.boolean :alipay,                    null: false, default: false
+      t.boolean :wxpay,                     null: false, default: false
+      t.boolean :bankpay,                   null: false, default: false
+      t.text    :remark
+
+      t.timestamps
+    end
+
+    create_table :orders do |t|
+      t.integer :buyer_id,                  null: false
+      t.integer :seller_id,                 null: false
+      t.integer :advertisement_id,          null: false
+      t.integer :cryptocurrency_type,       null: false
+      t.float   :cryptocurrency_amount,     null: false
+      t.float   :legal_tender_amount,       null: false
+      t.integer :status,                    null: false, default: 0
+      t.float   :price,                     null: false
+      t.float   :service_charge,            null: false, default: 0
+      t.integer :payment
+      t.integer :locked_at
+      t.integer :time_limit,                null: false, default: 15
+      t.boolean :buyer_checked,             null: false, default: false
+      t.boolean :seller_checked,            null: false, default: false
+
+      t.timestamps
+    end
+  end
+end
