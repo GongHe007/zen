@@ -14,11 +14,18 @@ class Api::V1::OrdersController < ApiController
       return render json: { success: false, msg: "广告已下架，请选择其他广告下单" }
     end
 
-    if advertisement.user.balance(advertisement.cryptocurrency_type) < params[:cryptocurrency_amount].to_f
+    if advertisement._type == Advertisement::SELL &&
+       advertisement.user.balance(advertisement.cryptocurrency_type) < params[:cryptocurrency_amount].to_f
       return render json: { success: false, msg: "卖家余额不足" }
     end
-    buyer_id = current_user.id
-    seller_id = advertisement.user_id
+
+    if advertisement._type == Advertisement::SELL
+      buyer_id = current_user.id
+      seller_id = advertisement.user_id
+    else
+      buyer_id = advertisement.user_id
+      seller_id = current_user.id
+    end
     order = Order.new(order_info.merge(buyer_id: buyer_id, seller_id: seller_id, cryptocurrency_type: advertisement.cryptocurrency_type))
     unless order.valid_advertisement?
       return render json: { success: false, msg: "广告已更新，请重新下单" }
@@ -45,7 +52,7 @@ class Api::V1::OrdersController < ApiController
   def buyer_check
     order = Order.find(params[:id])
     if order.buyer.id == current_user.id
-      order.update_attributes(buyer_checked: true)
+      order.payed
       render json: { success: true }
     else
       render json: { success: false, msg: "非法用户请求" }
@@ -59,6 +66,15 @@ class Api::V1::OrdersController < ApiController
       render json: { success: true }
     else
       render json: { success: false, msg: "非法用户请求" }
+    end
+  end
+
+  def close
+    order = Order.find(params[:id])
+    if order.present?
+      render json: { success: order.close }
+    else
+      render json: { success: false, msg: "订单不存在" }
     end
   end
 

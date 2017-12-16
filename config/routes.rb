@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  mount Sidekiq::Web, at: 'admin/sidekiq'
   namespace :api do
     namespace :v1 do
       resources :users, only: [:index]
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
           post :lock
         end
         member do
-          post :buyer_checked, :seller_checked
+          post :buyer_check, :seller_check
         end
       end
     end

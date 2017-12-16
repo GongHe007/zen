@@ -1,0 +1,14 @@
+---
+  :concurrency: 256
+  :pidpath: tmp/pids/
+  :logfile: log/sidekiq.log
+  :queues:
+    - [high_priority, 8]
+    - [low_priority, 4]
+    - default
+  development:
+    :concurrency: 16
+  sandbox:
+    :concurrency: 4
+  production:
+    :concurrency: 256

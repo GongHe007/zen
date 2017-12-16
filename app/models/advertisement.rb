@@ -4,6 +4,10 @@ class Advertisement < ActiveRecord::Base
   ONLINE = 0
   OFFLINE = 1
 
+  BUY = 0
+  SELL = 1
+
+
   def real_max_limit
     user_balance = user.balance(cryptocurrency_type) * price
     user_balance < max_limit ? user_balance : max_limit
