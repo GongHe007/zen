@@ -14,6 +14,9 @@ class Order < ActiveRecord::Base
   TIMEOUT = 4
   SUCCESSED = 5
 
+  BUY = 0
+  SELL = 1
+
   def valid_lock_date?
     locked_at + time_limit.minutes.to_i < Time.now.to_i
   end
@@ -34,6 +37,7 @@ class Order < ActiveRecord::Base
       end
       seller.lock_balance cryptocurrency_type, cryptocurrency_amount
       update_attributes(locked_at: Time.now.to_i, status: PAYING)
+      OrderChecker.check_timeout id, advertisement.time_limit * 60
     end
   end
 
@@ -43,6 +47,7 @@ class Order < ActiveRecord::Base
       seller.reduce_balance cryptocurrency_type, cryptocurrency_amount
       buyer.add_balance cryptocurrency_type, cryptocurrency_amount
       update_attributes(seller_checked: true, status: SUCCESSED)
+      OrderChecker.remove_timeout id
     end
   end
 
@@ -51,26 +56,21 @@ class Order < ActiveRecord::Base
     update_attributes(buyer_checked: true, status: PAYED)
   end
 
-  def unlock
-    Order.transaction do
-      seller.unlock_balance cryptocurrency_type, cryptocurrency_amount
-      update_attributes(status: CLOSED)
-    end
-  end
-
   def close
     if self.status == PAYING
       Order.transaction do
         seller.unlock_balance cryptocurrency_type, cryptocurrency_amount
         update_attributes(status: CLOSED)
+        OrderChecker.remove_timeout id
       end
+      true
     else
-      update_attributes(status: CLOSED)
+      false
     end
   end
 
   def as_json(options = {})
-    {
+    json = {
       id: id,
       buyer_id: buyer_id,
       seller_id: seller_id,
@@ -85,5 +85,7 @@ class Order < ActiveRecord::Base
       locked_at: locked_at,
       time_limit: time_limit
     }
+    json.merge!(type: options[:current_user_id] == buyer_id ? BUY : SELL) if options[:current_user_id]
+    json
   end
 end

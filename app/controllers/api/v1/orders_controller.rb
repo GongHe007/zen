@@ -2,7 +2,7 @@ class Api::V1::OrdersController < ApiController
   def show
     order = Order.find(params[:id])
     if order.buyer_id == current_user.id || order.seller_id == current_user.id
-      render json: { success: true, order: order.as_json }
+      render json: { success: true, order: order.as_json(current_user_id: current_user.id) }
     else
       render json: { success: false, msg: "订单不存在" }
     end
@@ -26,7 +26,7 @@ class Api::V1::OrdersController < ApiController
       buyer_id = advertisement.user_id
       seller_id = current_user.id
     end
-    order = Order.new(order_info.merge(buyer_id: buyer_id, seller_id: seller_id, cryptocurrency_type: advertisement.cryptocurrency_type))
+    order = Order.new(order_info.merge(buyer_id: buyer_id, seller_id: seller_id, cryptocurrency_type: advertisement.cryptocurrency_type, legal_tender_type: advertisement.legal_tender_type))
     unless order.valid_advertisement?
       return render json: { success: false, msg: "广告已更新，请重新下单" }
     end
@@ -61,7 +61,7 @@ class Api::V1::OrdersController < ApiController
 
   def seller_check
     order = Order.find(params[:id])
-    if order.seller.id == current_user
+    if order.seller.id == current_user.id
       order.clearing
       render json: { success: true }
     else
@@ -71,7 +71,7 @@ class Api::V1::OrdersController < ApiController
 
   def close
     order = Order.find(params[:id])
-    if order.present?
+    if order.present? && order.buyer_id == current_user.id
       render json: { success: order.close }
     else
       render json: { success: false, msg: "订单不存在" }

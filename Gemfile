@@ -15,6 +15,7 @@ gem 'turbolinks', '~> 5'
 gem 'will_paginate', '~> 3.1.0'
 gem 'redis', '~> 3.3.3'
 gem 'sidekiq', '~> 5.0.3'
+gem 'ethereum'
 
 group :development, :test do
   gem 'pry'

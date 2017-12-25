@@ -35,3 +35,7 @@
   post "/api/v1/orders/#{order_id}/seller_check"
 8. 获取订单信息
   get "/api/v1/orders/#{order_id}"
+9. 获取用户订单列表
+  get "/api/v1/users/#{user_id}/orders?page=1"
+10. 关闭订单
+  post "/api/v1/orders/#{order_id}/close"

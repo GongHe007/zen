@@ -2,7 +2,7 @@ class InitMigration < ActiveRecord::Migration[5.1]
   def change
     create_table :users do |t|
       t.string  :nickname,                   null: false
-      t.string  :password,                   null: false
+      t.string  :encrypted_password,         null: false
       t.string  :email,                      null: false
       t.string  :mobile_number,  limit: 20
       t.string  :alipay_number
@@ -28,6 +28,11 @@ class InitMigration < ActiveRecord::Migration[5.1]
       t.boolean :wxpay,                     null: false, default: false
       t.boolean :bankpay,                   null: false, default: false
       t.text    :remark
+      t.index   :user_id
+      t.index   :_type
+      t.index   :cryptocurrency_type
+      t.index   :legal_tender_type
+      t.index   :status
 
       t.timestamps
     end
@@ -37,6 +42,7 @@ class InitMigration < ActiveRecord::Migration[5.1]
       t.integer :seller_id,                 null: false
       t.integer :advertisement_id,          null: false
       t.integer :cryptocurrency_type,       null: false
+      t.integer :legal_tender_type,         null: false
       t.float   :cryptocurrency_amount,     null: false
       t.float   :legal_tender_amount,       null: false
       t.integer :status,                    null: false, default: 0
@@ -47,6 +53,12 @@ class InitMigration < ActiveRecord::Migration[5.1]
       t.integer :time_limit,                null: false, default: 15
       t.boolean :buyer_checked,             null: false, default: false
       t.boolean :seller_checked,            null: false, default: false
+      t.index   :buyer_id
+      t.index   :seller_id
+      t.index   :advertisement_id
+      t.index   :cryptocurrency_type
+      t.index   :legal_tender_type
+      t.index   :status
 
       t.timestamps
     end

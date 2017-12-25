@@ -28,6 +28,11 @@ ActiveRecord::Schema.define(version: 20171207094936) do
     t.text "remark"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["_type"], name: "index_advertisements_on__type"
+    t.index ["cryptocurrency_type"], name: "index_advertisements_on_cryptocurrency_type"
+    t.index ["legal_tender_type"], name: "index_advertisements_on_legal_tender_type"
+    t.index ["status"], name: "index_advertisements_on_status"
+    t.index ["user_id"], name: "index_advertisements_on_user_id"
   end
 
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -35,6 +40,7 @@ ActiveRecord::Schema.define(version: 20171207094936) do
     t.integer "seller_id", null: false
     t.integer "advertisement_id", null: false
     t.integer "cryptocurrency_type", null: false
+    t.integer "legal_tender_type", null: false
     t.float "cryptocurrency_amount", limit: 24, null: false
     t.float "legal_tender_amount", limit: 24, null: false
     t.integer "status", default: 0, null: false
@@ -47,11 +53,17 @@ ActiveRecord::Schema.define(version: 20171207094936) do
     t.boolean "seller_checked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["advertisement_id"], name: "index_orders_on_advertisement_id"
+    t.index ["buyer_id"], name: "index_orders_on_buyer_id"
+    t.index ["cryptocurrency_type"], name: "index_orders_on_cryptocurrency_type"
+    t.index ["legal_tender_type"], name: "index_orders_on_legal_tender_type"
+    t.index ["seller_id"], name: "index_orders_on_seller_id"
+    t.index ["status"], name: "index_orders_on_status"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string "nickname", null: false
-    t.string "password", null: false
+    t.string "encrypted_password", null: false
     t.string "email", null: false
     t.string "mobile_number", limit: 20
     t.string "alipay_number"

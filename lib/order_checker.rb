@@ -1,6 +1,6 @@
 class OrderChecker
   class << self
-    def run_timeout order_id, seconds
+    def check_timeout order_id, seconds
       $redis.set(checker_key(order_id), true)
       $redis.expire(checker_key(order_id), seconds)
     end

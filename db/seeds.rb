@@ -21,6 +21,21 @@ if 0 == Advertisement.count
   User.first(100).each do |user|
     params = {
       user_id: user.id,
+      _type: 1,
+      cryptocurrency_type: 0,
+      legal_tender_type: 0,
+      price: 3200,
+      min_limit: 1,
+      max_limit: 10000,
+      time_limit: 5,
+      alipay: true,
+      remark: ""
+    }
+    Advertisement.create(params)
+  end
+  User.first(100).each do |user|
+    params = {
+      user_id: user.id,
       _type: 0,
       cryptocurrency_type: 0,
       legal_tender_type: 0,
