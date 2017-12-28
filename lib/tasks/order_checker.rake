@@ -5,6 +5,7 @@ namespace :order_checker do
     $redis.psubscribe("*") do |on|
       on.pmessage do |pattern, channel, msg|
         begin
+          next if msg.include?("OrderChecker")
           order_id = msg.gsub("OrderChecker:", "")
           order = Order.find(order_id)
           order.update_attributes(status: Order::TIMEOUT)

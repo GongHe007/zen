@@ -1,13 +1,13 @@
 class Api::V1::AdvertisementsController < ApiController
   def index
-    advertisements = Advertisement.where(status: Advertisement::ONLINE, _type: params[:_type]).where.not(user_id: current_user.id).includes(:user)
+    advertisements = Advertisement.online.where(_type: params[:_type]).where.not(user_id: current_user.id).includes(:user)
     amount = advertisements.count
     advertisements = advertisements.paginate(page: params[:page], per_page: 15)
     render json: { success: true, amount: amount, advertisements: advertisements.as_json }
   end
 
   def show
-    advertisement = Advertisement.find(params[:id])
+    advertisement = Advertisement.find_by(id: params[:id], status: Advertisement::ONLINE)
     render json: { success: true, advertisement: advertisement.as_json }
   end
 

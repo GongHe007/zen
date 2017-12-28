@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(version: 20171207094936) do
     t.boolean "alipay", default: false, null: false
     t.boolean "wxpay", default: false, null: false
     t.boolean "bankpay", default: false, null: false
+    t.string "alipay_number"
+    t.string "wx_number"
+    t.string "bank_card_number"
     t.text "remark"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -64,11 +67,9 @@ ActiveRecord::Schema.define(version: 20171207094936) do
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string "nickname", null: false
     t.string "encrypted_password", null: false
+    t.string "token", null: false
     t.string "email", null: false
     t.string "mobile_number", limit: 20
-    t.string "alipay_number"
-    t.string "wx_number"
-    t.string "bank_card_number"
     t.float "eth_balance", limit: 24, default: 0.0, null: false
     t.float "eth_locked_balance", limit: 24, default: 0.0, null: false
     t.datetime "created_at", null: false

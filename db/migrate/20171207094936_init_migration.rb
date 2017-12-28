@@ -3,11 +3,9 @@ class InitMigration < ActiveRecord::Migration[5.1]
     create_table :users do |t|
       t.string  :nickname,                   null: false
       t.string  :encrypted_password,         null: false
+      t.string  :token,                      null: false
       t.string  :email,                      null: false
       t.string  :mobile_number,  limit: 20
-      t.string  :alipay_number
-      t.string  :wx_number
-      t.string  :bank_card_number
       t.float   :eth_balance,                null: false, default: 0.0
       t.float   :eth_locked_balance,         null: false, default: 0.0
 
@@ -27,6 +25,9 @@ class InitMigration < ActiveRecord::Migration[5.1]
       t.boolean :alipay,                    null: false, default: false
       t.boolean :wxpay,                     null: false, default: false
       t.boolean :bankpay,                   null: false, default: false
+      t.string  :alipay_number
+      t.string  :wx_number
+      t.string  :bank_card_number
       t.text    :remark
       t.index   :user_id
       t.index   :_type

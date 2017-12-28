@@ -26,7 +26,8 @@ class Order < ActiveRecord::Base
       price == advertisement.price &&
       cryptocurrency_amount * advertisement.price == legal_tender_amount &&
       legal_tender_amount >= advertisement.min_limit &&
-      legal_tender_amount <= advertisement.max_limit
+      legal_tender_amount <= advertisement.max_limit &&
+      seller.balance(cryptocurrency_type) >= cryptocurrency_amount
   end
 
   def lock

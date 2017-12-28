@@ -1,7 +1,7 @@
 1. 创建广告
   post "/api/v1/advertisements"
   params = {
-    _type: 0,    #出售/购买
+    _type: 0,                 #出售/购买
     cryptocurrency_type: 0,   #货币类型
     legal_tender_type: 0,     #法币类型
     price: 3200,              #货币单价
@@ -9,6 +9,8 @@
     max_limit: 10000,         #最大限额
     time_limit: 5,            #有效时间（分钟）
     alipay: true,             #是否支持支付宝
+    wxpay: true,              #是否支持微信
+    bankpay: true,            #是否支持银行卡
     remark: ""                #备注
   }
 2. 获取广告列表
@@ -36,6 +38,22 @@
 8. 获取订单信息
   get "/api/v1/orders/#{order_id}"
 9. 获取用户订单列表
-  get "/api/v1/users/#{user_id}/orders?page=1"
+  get "/api/v1/users/orders?page=1"
 10. 关闭订单
   post "/api/v1/orders/#{order_id}/close"
+11. 创建用户
+  post "api/v1/users"
+  params = {
+    password: "",
+    email: ""
+  }
+12. 登录
+  post "/api/v1/sessions"
+  params = {
+    email: "",
+    password: ""
+  }
+13. 获取用户信息
+  get "/api/v1/users/info"
+14. 我的广告列表
+  get "/api/v1/users/advertisements"

@@ -16,6 +16,8 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'redis', '~> 3.3.3'
 gem 'sidekiq', '~> 5.0.3'
 gem 'ethereum'
+gem 'haml', '~> 5.0.4'
+gem 'websocket-rails', github: 'recurser/websocket-rails', branch: 'bugfix/388-latest-faye-websocket'
 
 group :development, :test do
   gem 'pry'

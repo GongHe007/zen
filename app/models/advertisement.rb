@@ -7,6 +7,9 @@ class Advertisement < ActiveRecord::Base
   BUY = 0
   SELL = 1
 
+  scope :online,    -> { where(status: ONLINE) }
+  scope :offline,    -> { where(status: OFFLINE) }
+
   def real_max_limit
     user_balance = user.balance(cryptocurrency_type) * price
     user_balance < max_limit ? user_balance : max_limit
