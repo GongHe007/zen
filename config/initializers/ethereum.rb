@@ -1,1 +1,1 @@
-$eth_client = Ethereum::IpcClient.new("/Users/gh/Documents/eth-private-chain/data/geth.ipc")
+$eth_client = Ethereum::IpcClient.new("#{ENV['DATADIR']}/geth.ipc")
