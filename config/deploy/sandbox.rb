@@ -4,5 +4,5 @@ role :db, %w{ali-sandbox1}
 
 set :stage        ,   :sandbox
 set :rails_env    ,   :sandbox
-set :branch       ,   :master
+set :branch       ,   :sandbox
 set :deploy_to    ,   "/var/www/#{fetch(:application)}/#{fetch(:stage)}"
