@@ -17,10 +17,12 @@ class InitMigration < ActiveRecord::Migration[5.1]
       t.integer :_type,                     null: false
       t.integer :cryptocurrency_type,       null: false
       t.integer :legal_tender_type,         null: false
-      t.float   :price,                     null: false
+      t.float   :premium,                   null: false
       t.integer :status,                    null: false, default: 0
-      t.float   :min_limit,                 null: false
-      t.float   :max_limit,                 null: false
+      t.float   :min_limit
+      t.float   :max_limit
+      t.float   :min_price
+      t.float   :max_price
       t.integer :time_limit,                null: false
       t.boolean :alipay,                    null: false, default: false
       t.boolean :wxpay,                     null: false, default: false

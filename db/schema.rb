@@ -10,17 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171207094936) do
+ActiveRecord::Schema.define(version: 20171229055429) do
 
   create_table "advertisements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "user_id", null: false
     t.integer "_type", null: false
     t.integer "cryptocurrency_type", null: false
     t.integer "legal_tender_type", null: false
-    t.float "price", limit: 24, null: false
+    t.float "premium", limit: 24, null: false
     t.integer "status", default: 0, null: false
-    t.float "min_limit", limit: 24, null: false
-    t.float "max_limit", limit: 24, null: false
+    t.float "min_limit", limit: 24
+    t.float "max_limit", limit: 24
+    t.float "min_price", limit: 24
+    t.float "max_price", limit: 24
     t.integer "time_limit", null: false
     t.boolean "alipay", default: false, null: false
     t.boolean "wxpay", default: false, null: false
@@ -31,6 +33,7 @@ ActiveRecord::Schema.define(version: 20171207094936) do
     t.text "remark"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "certification", default: false, null: false
     t.index ["_type"], name: "index_advertisements_on__type"
     t.index ["cryptocurrency_type"], name: "index_advertisements_on_cryptocurrency_type"
     t.index ["legal_tender_type"], name: "index_advertisements_on_legal_tender_type"

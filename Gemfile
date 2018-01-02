@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://gems.ruby-china.org/'
 
 gem 'dotenv-rails'
 git_source(:github) do |repo_name|
@@ -17,7 +17,6 @@ gem 'redis', '~> 3.3.3'
 gem 'sidekiq', '~> 5.0.3'
 gem 'ethereum'
 gem 'haml', '~> 5.0.4'
-gem 'websocket-rails', github: 'recurser/websocket-rails', branch: 'bugfix/388-latest-faye-websocket'
 
 group :development, :test do
   gem 'pry'
@@ -31,6 +30,11 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'capistrano', '~> 3.9'
+  gem 'capistrano-rails', "~> 1.3.0"
+  gem 'capistrano-rvm', "~> 0.1.2"
+  gem 'capistrano3-puma', "~> 3.1.1"
+  gem 'capistrano-sidekiq', "~> 0.20.0"
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

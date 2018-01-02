@@ -9,7 +9,7 @@ class Api::V1::UsersController < ApiController
     return render json: { success: false, msg: "邮箱已被注册" } if User.find_by_email(params[:email]).present?
     user = User.new(user_info)
     user.cache_create_info
-    UserSignupNotifierJob.perform_later user
+    UserSignupNotifierJob.perform_later user.email, user.create_verify_code
     render json: { success: true }
   end
 

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   mount Sidekiq::Web, at: 'admin/sidekiq'
   namespace :api do
     namespace :v1 do
+      get "market_price/coinmarket" => "market_price#coinmarket"
+
       resources :users, only: [:create] do
         collection do
           get :verify, :orders, :info, :advertisements

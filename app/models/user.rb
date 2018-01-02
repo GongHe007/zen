@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   def as_json(options = {})
     {
+      id: id,
       nickname: nickname,
       email: email,
       eth_balance: eth_balance,

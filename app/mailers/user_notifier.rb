@@ -1,11 +1,9 @@
 class UserNotifier < ActionMailer::Base
   default :from => 'noreply@creatingev.com'
 
-  def send_signup_email user
-    @user = user
-    @code = @user.create_verify_code
-    @verify_url = "#{ZEN_SITE_URL}/api/v1/users/verify?email=#{@user.email}&code=#{@code}"
-    mail( to: @user.email,
+  def send_signup_email email, code
+    @verify_url = "#{ZEN_SITE_URL}/api/v1/users/verify?email=#{email}&code=#{code}"
+    mail( to: email,
       subject: '注册验证' )
   end
 

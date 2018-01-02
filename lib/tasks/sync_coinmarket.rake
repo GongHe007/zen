@@ -20,7 +20,7 @@ namespace :sync_coinmarket do
       rescue => e
         puts e
       end
-      sleep(20)
+      sleep(10.minutes.to_i)
     end
   end
 end

@@ -4,7 +4,9 @@
     _type: 0,                 #出售/购买
     cryptocurrency_type: 0,   #货币类型
     legal_tender_type: 0,     #法币类型
-    price: 3200,              #货币单价
+    premium: 5,               #货币溢价，5代表5%
+    min_price: null,          #欲出售的广告，需填写，可接受最低单价
+    max_price: 1000,          #欲购买的广告，需填写，可接受最高单价
     min_limit: 1,             #最小限额
     max_limit: 10000,         #最大限额
     time_limit: 5,            #有效时间（分钟）
@@ -12,6 +14,7 @@
     wxpay: true,              #是否支持微信
     bankpay: true,            #是否支持银行卡
     remark: ""                #备注
+    certification: false      #是否需要身份认证
   }
 2. 获取广告列表
   get "/api/v1/advertisements?_type=1&page=1"
@@ -57,3 +60,5 @@
   get "/api/v1/users/info"
 14. 我的广告列表
   get "/api/v1/users/advertisements"
+15. 获取市场价(coinmarket)
+  get "/api/v1/market_price/coinmarket?type=eth"
