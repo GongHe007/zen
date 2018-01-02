@@ -1,4 +1,4 @@
-class Admin::SessionController < WebsocketRails::BaseController
+class Admin::SessionController < ApplicationController
   def new
     binding.pry
   end
