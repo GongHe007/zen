@@ -17,6 +17,7 @@ gem 'redis', '~> 3.3.3'
 gem 'sidekiq', '~> 5.0.3'
 gem 'ethereum'
 gem 'haml', '~> 5.0.4'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   gem 'pry'
